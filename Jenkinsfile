@@ -1,8 +1,11 @@
 pipeline {
     agent any
     tools{
-        //maven 'maven_3_5_0'
         maven 'MyMaven'
+    }
+    environment{
+        // Generate a unique tag no
+        IMAGE_TAG = "devops-integration:${BUILD_NUMBER}.0"
     }
     stages{
         stage('Build Maven'){
@@ -14,7 +17,8 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t reddyk123/devops-integration .'
+                    //sh 'docker build -t reddyk123/devops-integration:1.0 .'
+                    sh 'docker build -t reddyk123/${IMAGE_TAG} .'
                 }
             }
         }
@@ -23,17 +27,10 @@ pipeline {
                 script{
                        withCredentials([string(credentialsId: 'DockerHub', variable: 'dockerhubpwd')]) {
                            sh 'docker login -u reddyk123 -p ${dockerhubpwd}'
-                           sh 'docker push reddyk123/devops-integration'
+                           sh 'docker push reddyk123/${IMAGE_TAG}'
                     }
                 }
             }
-        }
-       // stage('Deploy to k8s'){
-           // steps{
-              //  script{
-               //     kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
-              //  }
-           // }
-        //}
+        }  
     }
 }
