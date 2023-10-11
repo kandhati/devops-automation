@@ -18,17 +18,21 @@ pipeline {
             steps{
                 script{
                     //sh 'docker build -t reddyk123/devops-integration:1.0 .'
-                    sh 'docker build -t reddyk123/${IMAGE_TAG} .'
+                    // sh 'docker build -t reddyk123/${IMAGE_TAG} .'
+                    sh 'docker build -t gogulakk/${IMAGE_TAG} .'
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
                 script{
-                       withCredentials([string(credentialsId: 'DockerHub', variable: 'dockerhubpwd')]) {
-                           sh 'docker login -u reddyk123 -p ${dockerhubpwd}'
-                           sh 'docker push reddyk123/${IMAGE_TAG}'
-                    }
+                      // withCredentials([string(credentialsId: 'DockerHub', variable: 'dockerhubpwd')]) {
+                          // sh 'docker login -u reddyk123 -p ${dockerhubpwd}'                    
+                          // sh 'docker push reddyk123/${IMAGE_TAG}'
+
+                            sh 'docker login -u gogulakk -p Just@open9'
+                            sh 'docker push gogulakk/${IMAGE_TAG}'
+                   // }
                 }
             }
         }  
