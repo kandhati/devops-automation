@@ -17,7 +17,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    //sh 'docker build -t reddyk123/devops-integration:1.0 .' test1
+                    //sh 'docker build -t reddyk123/devops-integration:1.0 .' test2
                      sh 'docker build -t reddyk123/${IMAGE_TAG} .'
                 }
             }
