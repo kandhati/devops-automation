@@ -4,7 +4,7 @@ pipeline {
         maven 'MyMaven'
     }
     environment{
-        // Generate a unique tag no
+        // Generate a unique tag no 
         IMAGE_TAG = "devops-integration:${BUILD_NUMBER}.0"
     }
     stages{
